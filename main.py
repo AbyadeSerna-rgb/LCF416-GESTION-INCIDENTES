@@ -17,11 +17,12 @@ class Incidente:
         self.responsable = None
 
     def asignar_responsable(self, usuario):
+        if not isinstance(usuario, Usuario):
+           print("Error: el responsable debe ser un usuario válido.")
+        return
+    
         self.responsable = usuario
-        print(
-            f"El incidente {self.id} fue asignado a "
-            f"{usuario.nombre}."
-        )
+        print(f"El incidente {self.id} fue asignado a {usuario.nombre}.")
 
     def cerrar(self):
         self.estado = "Cerrado"
