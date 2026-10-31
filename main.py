@@ -45,10 +45,16 @@ class Incidente:
 class Notificador:
     def enviar(self, incidente):
         print("\n--- NOTIFICACIÓN ---")
-        print(
-            f"Se notificó el cierre del incidente "
-            f"{incidente.id}: {incidente.descripcion}"
-        )
+        print(f"Incidente: {incidente.id}")
+        print(f"Descripción: {incidente.descripcion}")
+
+        if incidente.responsable is not None:
+            print(f"Responsable: {incidente.responsable.nombre}")
+        else:
+            print("Responsable: Sin asignar")
+
+        print(f"Estado: {incidente.estado}")
+        print("Notificación de cierre enviada.")
         print("--------------------")
 
 #4 CLASE GESTOR DE INCIDENTES
