@@ -72,6 +72,8 @@ class GestorIncidentes:
         for incidente in self.incidentes:
             print(incidente.resumen())
 
+        print(f"Total de incidentes registrados: {len(self.incidentes)}")
+
         print("===============================\n")
 
     def cerrar_incidente(self, incidente, notificador):
