@@ -35,10 +35,6 @@ class Incidente:
     def estado(self):
         return self._estado
 
-    def cerrar(self):
-        self._estado = "Cerrado"
-        print(f"EL INCIDENTE {self.id} HA SIDO CERRADO")
-
     def reabrir(self):
         self._estado = "Abierto"
         print(f"EL INCIDENTE {self.id} HA SIDO REABIERTO")
@@ -175,12 +171,36 @@ class GestorIncidentes:
 
         print("===============================\n")
 
+    def pendientes_priorizados(self):
+        """"Devuelve incidentes abiertos ordenados por gravedad"""
+        prioridad = {
+            "Critica": 0,
+            "Alta": 1,
+            "Media": 2,
+            "Baja": 3
+        }
+
+        abiertos = [
+            incidente for incidente in self.incidentes
+            if incidente.estado == "Abierto"
+        ]
+
+        return sorted(
+            abiertos, 
+            key=lambda incidente: prioridad[incidente.gravedad]
+        )
+
     def cerrar_incidente(self, incidente, notificador):
-        if incidente in self.incidentes:
-            incidente.cerrar()
-            notificador.enviar(incidente)
-        else:
+        if incidente not in self.incidentes:
             print("El incidente no está registrado.")
+            return
+
+        if not isinstance(notificador, Notificador):
+            print("Error: se necesita un notificador válido.")
+            return
+
+        incidente.cerrar()
+        notificador.enviar(incidente)
 
 #PROGRAMA PRINCIPAL
 if __name__ == "__main__":
