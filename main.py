@@ -172,7 +172,6 @@ class GestorIncidentes:
         print("===============================\n")
 
     def pendientes_priorizados(self):
-        """"Devuelve incidentes abiertos ordenados por gravedad"""
         prioridad = {
             "Critica": 0,
             "Alta": 1,
