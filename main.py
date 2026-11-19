@@ -224,6 +224,10 @@ if __name__ == "__main__":
         104, "Programa sospechoso", "Baja", "Troyano"
     )
 
+    incidente5 = IncidenteAcceso(
+        105, "Intento de acceso sospechoso", "Alta", "usuario02", 5
+    )
+
     #Crear gestor
     gestor = GestorIncidentes()
 
@@ -232,6 +236,7 @@ if __name__ == "__main__":
     gestor.registrar_incidente(incidente2)
     gestor.registrar_incidente(incidente3)
     gestor.registrar_incidente(incidente4)
+    gestor.registrar_incidente(incidente5)
 
     #Asignar responsables
     gestor.asignar_responsable(incidente1, usuario1)
@@ -240,6 +245,16 @@ if __name__ == "__main__":
     #Consultar incidentes: polimorfismo
     print("\n--- REPORTES POLIMÓRFICOS ---")
     gestor.consultar_incidentes()
+
+    #Exportar incidentes pendientes a CSV
+    exportador = ExportadorCSV()
+    pendientes = gestor.pendientes_priorizados()
+    archivo_csv = exportador.exportar(
+        pendientes,
+        "incidentes_pendientes.csv"
+    )
+
+    print(f"Reporte exportado correctamente: {archivo_csv}")
 
     #Comprobar gravedad
     print("\n--- VALIDACIÓN DE GRAVEDAD ---")
